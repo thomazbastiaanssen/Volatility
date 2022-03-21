@@ -1,0 +1,64 @@
+volatility <- function(counts, metadata, transform = TRUE, verbose = TRUE){
+  if(transform){stopifnot("Count table contains negative values;\nIt looks like the count table is already transformed." = all(counts >= 0))}
+
+  if(transform){
+  ###Apply CLR transformation
+  counts = clr_c(counts)
+    }
+  ###Compute volatility
+  volatility_df = compute_volatility(counts = counts, ids = metadata)
+}
+
+volatility_boot <- function(counts, metadata, transform = TRUE, times = 10, verbose = TRUE){
+  if(transform){stopifnot("Count table contains negative values;\nIt looks like the count table is already transformed." = all(counts >= 0))}
+
+
+  boot_inds <- replicate(times, sample(1:nrow(counts), size = nrow(counts), replace = T))
+  res = apply(boot_inds, MARGIN = 2, FUN = function(x) {volatility(counts = counts[x,], metadata = metadata)})
+  return(res)
+}
+
+compute_volatility <- function(counts, ids, verbose = TRUE){
+  stopifnot("For simple volatility calculations all microbiomes need exactly two measurements" = all(table(ids) == 2))
+
+  #First compute a euclidean distance matrix for all samples
+  dist.matrix = as.matrix(dist(x = t(counts), method = "euclidean", diag = T, upper = T))
+
+  #Establish the order of the IDs in metadata.
+  #r will contain the locations of the first member of each sample pair.
+  r = order(ids)[1:length(ids) %% 2 == 1]
+  #c will contain the location of the second member of each sample pair.
+  c = order(ids)[1:length(ids) %% 2 == 0]
+
+  #Make a single index of values to extract form the matrix.
+  #r represents the row position in the matrix, whereas (c-1)*nrow represents how
+  #many times the number of rows needs to be added to reflect increasing the column position by 1.
+  volatility = dist.matrix[r + ((c-1)*nrow(dist.matrix)) ]
+
+
+  volatility_df = data.frame(ID         = unique(sort(ids)),
+                             volatility = volatility)
+
+  return(volatility_df)
+
+}
+
+counts = counts[apply(counts == 0, 1, sum) <= (ncol(counts) *0.90 ), ]
+
+counts.exp = clr_c(counts)
+res = volatility(counts = counts, metadata = vola_metadata$mouse_ID)
+
+colnames(met)[5] = "ID"
+left_join(res, met[1:60,], "ID") %>%
+  filter(cohort != "Discovery") %>%
+  t.test(volatility ~ treatment, data = .)
+
+library(tidyverse)
+
+met = vola_metadata
+colnames(met)[5] = "ID"
+left_join(res, met[1:60,], "ID") %>%
+  ggplot(aes(x = treatment, y = volatility)) +
+  geom_boxplot()+
+  geom_point() +
+  facet_wrap(~cohort)
