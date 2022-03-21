@@ -9,4 +9,5 @@ Description: Compute the degree of change over time in microbiome time-series da
 License: use_gpl3_license()
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
+LazyData: true
 RoxygenNote: 7.1.2
