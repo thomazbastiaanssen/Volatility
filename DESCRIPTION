@@ -1,0 +1,12 @@
+Package: volatility
+Title: Microbiome-oriented tool to compute degree of compositional change over time
+Version: 0.0.0.9000
+Authors@R: c(
+   person("Thomaz", "Bastiaanssen", email = "thomaz.bastiaanssen@ucc.ie", role = c("aut", "cre"), comment = c(ORCID = "0000-0001-6891-734X"))
+   )
+Maintainer: Thomaz Bastiaanssen <thomaz.bastiaanssen@ucc.ie>
+Description: Compute the degree of change over time in microbiome time-series data. 
+License: use_gpl3_license()
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
