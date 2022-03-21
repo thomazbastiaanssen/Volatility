@@ -9,12 +9,14 @@ volatility <- function(counts, metadata, transform = TRUE, verbose = TRUE){
   volatility_df = compute_volatility(counts = counts, ids = metadata)
 }
 
-volatility_boot <- function(counts, metadata, transform = TRUE, times = 10, verbose = TRUE){
-  if(transform){stopifnot("Count table contains negative values;\nIt looks like the count table is already transformed." = all(counts >= 0))}
+volatility_boot <- function(counts, metadata, transform = TRUE, times = 1000, nmax = 50, verbose = TRUE){
+  #stopifnot("nmax cannot exceed the the number of features." = nmax <= nrow(counts))
 
+  boot_inds <- replicate(times, sample(1:nrow(counts), size = nmax, replace = T))
+  res = apply(boot_inds, MARGIN = 2, FUN = function(x) {volatility(counts = counts[x,], metadata = metadata)$volatility})
 
-  boot_inds <- replicate(times, sample(1:nrow(counts), size = nrow(counts), replace = T))
-  res = apply(boot_inds, MARGIN = 2, FUN = function(x) {volatility(counts = counts[x,], metadata = metadata)})
+  row.names(res) = unique(sort(metadata))
+
   return(res)
 }
 
@@ -47,9 +49,17 @@ counts = counts[apply(counts == 0, 1, sum) <= (ncol(counts) *0.90 ), ]
 
 counts.exp = clr_c(counts)
 res = volatility(counts = counts, metadata = vola_metadata$mouse_ID)
+bootres = volatility_boot(counts = counts, metadata = vola_metadata$mouse_ID, times = 10, nmax = 500 )
+
+mapres = lapply(X = (10 *1:80), FUN = function(x){volatility_boot(counts = counts, metadata = vola_metadata$mouse_ID, times = 10, nmax = x)})
+
+bootres = apply(bootres, 1, median)
+
+bootres = data.frame(ID = names(bootres),
+                     volatility = bootres)
 
 colnames(met)[5] = "ID"
-left_join(res, met[1:60,], "ID") %>%
+left_join(bootres, met[1:60,], "ID") %>%
   filter(cohort != "Discovery") %>%
   t.test(volatility ~ treatment, data = .)
 
@@ -57,8 +67,9 @@ library(tidyverse)
 
 met = vola_metadata
 colnames(met)[5] = "ID"
-left_join(res, met[1:60,], "ID") %>%
+left_join(bootres, met[1:60,], "ID") %>%
   ggplot(aes(x = treatment, y = volatility)) +
   geom_boxplot()+
   geom_point() +
   facet_wrap(~cohort)
+
