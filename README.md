@@ -14,8 +14,8 @@ If you use this software, please cite our work.
 Thomaz F.S Bastiaanssen, Anand Gururajan, Marcel van de Wouw, Gerard M
 Moloney, Nathaniel L Ritz, Caitriona M Long-Smith, Niamh C Wiley, Amy B
 Murphy, Joshua M Lyte, Fiona Fouhy, Catherine Stanton, Marcus J
-Claesson, Timothy G Dinan, John F Cryan, Volatility as a Concept to
-Understand the Impact of Stress on the Microbiome,
+Claesson, Timothy G Dinan, John F Cryan, **Volatility as a Concept to
+Understand the Impact of Stress on the Microbiome**
 Psychoneuroendocrinology
 <https://doi.org/10.1016/j.psyneuen.2020.105047>
 
