@@ -66,8 +66,7 @@ vola_genus_table[4:10,1:2]
 
 -   `metadata`, a vector in the same order as the count table, denoting
     which samples are from the same source.
-    -   The column `mouse_ID` in `vola_metadata` is appropriate for
-        this.
+    -   The column `ID` in `vola_metadata` is appropriate for this.
 
 ``` r
 head(vola_metadata)
