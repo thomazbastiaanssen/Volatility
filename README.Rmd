@@ -62,7 +62,7 @@ head(vola_metadata)
 ## Basic use
 
 ```{r, eval=TRUE}
-vola_out <- volatility(counts = vola_genus_table, metadata = vola_metadata$mouse_ID)
+vola_out <- volatility(counts = vola_genus_table, metadata = vola_metadata$ID)
 
 ```
 
@@ -71,9 +71,8 @@ vola_out <- volatility(counts = vola_genus_table, metadata = vola_metadata$mouse
 
 
 ```{r plot_volatility, eval=TRUE, fig.width = 5, fig.height = 5}
-met = vola_metadata
-colnames(met)[5] = "ID"
-left_join(vola_out, met[1:60,], "ID") %>%
+
+left_join(vola_out, vola_metadata[vola_metadata$timepoint == "Pre",], "ID") %>%
 
   ggplot(aes(x = treatment, y = volatility, fill = treatment)) +
   geom_boxplot(alpha = 1/2)+

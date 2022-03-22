@@ -83,26 +83,24 @@ vola_genus_table[4:10,1:2]
 head(vola_metadata)
 ```
 
-    ##                  sample_ID     cohort timepoint treatment mouse_ID
-    ## 1 Validation_Pre_Control_1 Validation       Pre   Control        1
-    ## 2 Validation_Pre_Control_2 Validation       Pre   Control        2
-    ## 3 Validation_Pre_Control_3 Validation       Pre   Control        3
-    ## 4 Validation_Pre_Control_4 Validation       Pre   Control        4
-    ## 5 Validation_Pre_Control_5 Validation       Pre   Control        5
-    ## 6 Validation_Pre_Control_6 Validation       Pre   Control        6
+    ##                  sample_ID     cohort timepoint treatment ID
+    ## 1 Validation_Pre_Control_1 Validation       Pre   Control  1
+    ## 2 Validation_Pre_Control_2 Validation       Pre   Control  2
+    ## 3 Validation_Pre_Control_3 Validation       Pre   Control  3
+    ## 4 Validation_Pre_Control_4 Validation       Pre   Control  4
+    ## 5 Validation_Pre_Control_5 Validation       Pre   Control  5
+    ## 6 Validation_Pre_Control_6 Validation       Pre   Control  6
 
 ## Basic use
 
 ``` r
-vola_out <- volatility(counts = vola_genus_table, metadata = vola_metadata$mouse_ID)
+vola_out <- volatility(counts = vola_genus_table, metadata = vola_metadata$ID)
 ```
 
 ## Plot the results
 
 ``` r
-met = vola_metadata
-colnames(met)[5] = "ID"
-left_join(vola_out, met[1:60,], "ID") %>%
+left_join(vola_out, vola_metadata[vola_metadata$timepoint == "Pre",], "ID") %>%
 
   ggplot(aes(x = treatment, y = volatility, fill = treatment)) +
   geom_boxplot(alpha = 1/2)+
