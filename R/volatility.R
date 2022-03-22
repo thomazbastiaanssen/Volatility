@@ -1,6 +1,12 @@
 #' Compute volatility between pairs of microbiome count data
+#' @description The main function of the volatility package.
+#' @param counts a microbiome count table, with rows as features and columns as samples
+#' @param metadata a vector in the same order as `counts`, containing information on which samples are from the same source and should be linked.
+#' @param transform a boolean, whether to CLR-transform count data beforehand. Highly recommended.
+#' @param verbose A boolean. Toggles whether to print diagnostic information while running. Useful for debugging errors on large datasets.
+#' @return a data.frame with IDs and volatility estimates per sample pair
 #' @export
-
+#'
 volatility <- function(counts, metadata, transform = TRUE, verbose = TRUE){
   if(transform){stopifnot("Count table contains negative values;\nIt looks like the count table is already transformed." = all(counts >= 0))}
 
