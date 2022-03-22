@@ -52,7 +52,7 @@ The main `volatility` function does all the heavy lifting here. It expects two o
  + the column `mouse_ID` in `vola_metadata` is appropriate for this. 
 
 ```{r, eval=TRUE}
-head(vola_genus_table)
+head(vola_genus_table[,1:2])
 
 head(vola_metadata)
 
@@ -75,7 +75,6 @@ colnames(met)[5] = "ID"
 left_join(vola_out, met[1:60,], "ID") %>%
 
   ggplot(aes(x = treatment, y = volatility, fill = treatment)) +
-  geom_path(aes(group = ID)) +
   geom_boxplot(alpha = 1/2)+
   geom_point(shape = 21) +
   facet_wrap(~cohort) +
