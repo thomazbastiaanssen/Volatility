@@ -1,3 +1,6 @@
+#This was the initial script used to in the original manuscript. For the sake of documentation I'm keeping this here. 
+#I would strongly advise users to use the volatility library instead of this script. 
+
 # Load Libraries ---------------------------------
 
 library(tidyverse)
