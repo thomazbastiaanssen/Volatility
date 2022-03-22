@@ -9,6 +9,7 @@ output:
 
 ```{r setup, include = F}
 knitr::opts_chunk$set(echo = TRUE)
+options(tidyverse.quiet = TRUE)
 library(volatility)
 ```
 ## Introduction
