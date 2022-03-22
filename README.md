@@ -57,14 +57,12 @@ data(volatility_data)
 ## Input data
 
 The main `volatility` function does all the heavy lifting here. It
-expects two objects.
+expects two objects:
 
 -   `counts`, a microbiome feature count table, with columns as samples
     and rows and features.
--   `metadata`, a vector in the same order as the count table, denoting
-    which samples are from the same source.
-    -   the column `mouse_ID` in `vola_metadata` is appropriate for
-        this.
+    -   The `vola_genus_table` object is an example of an appropriately
+        formatted count table.
 
 ``` r
 vola_genus_table[4:10,1:2]
@@ -78,6 +76,11 @@ vola_genus_table[4:10,1:2]
     ## Eggerthellaceae_Parvibacter                         21                       20
     ## Bacteroidaceae_Bacteroides                         616                      453
     ## Marinifilaceae_Odoribacter                         780                      915
+
+-   `metadata`, a vector in the same order as the count table, denoting
+    which samples are from the same source.
+    -   The column `mouse_ID` in `vola_metadata` is appropriate for
+        this.
 
 ``` r
 head(vola_metadata)
