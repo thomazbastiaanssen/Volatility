@@ -29,8 +29,9 @@ using `data(volatility_data)`. This loads a curated snippet from the
 dataset described in more detail here:
 <https://doi.org/10.1016/j.psyneuen.2020.105047>
 
-The method presented here is differs only marginally from the one used
-there.
+The method presented here is differs only incidentally from the one used
+there (namely in terms of how zeroes were imputed before
+CLR-transformation).
 
 ``` r
 #install and load volatility library

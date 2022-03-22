@@ -31,7 +31,7 @@ https://doi.org/10.1016/j.psyneuen.2020.105047
 OK, now let's get started.
 We'll load a complementary training dataset using `data(volatility_data)`. This loads a curated snippet from the dataset described in more detail here: https://doi.org/10.1016/j.psyneuen.2020.105047
 
-The method presented here is differs only marginally from the one used there. 
+The method presented here is differs only incidentally from the one used there (namely in terms of how zeroes were imputed before CLR-transformation). 
 
 
 ```{r, eval=TRUE}
