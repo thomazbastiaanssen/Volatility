@@ -5,6 +5,7 @@
 #' @param transform a boolean, whether to CLR-transform count data beforehand. Highly recommended.
 #' @param verbose A boolean. Toggles whether to print diagnostic information while running. Useful for debugging errors on large datasets.
 #' @return a data.frame with IDs and volatility estimates per sample pair
+#' @importFrom stats dist
 #' @export
 #'
 volatility <- function(counts, metadata, transform = TRUE, verbose = TRUE){

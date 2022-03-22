@@ -9,7 +9,7 @@ Description: Compute the degree of change over time in microbiome time-series da
 Depends: R (>= 3.5.0)
 Imports:
     stats
-License: `use_gpl3_license()`
+License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 LazyData: true
