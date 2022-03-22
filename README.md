@@ -34,10 +34,10 @@ there.
 #devtools::install_github("thomazbastiaanssen/volatility")
 library(volatility)
 
-#load tidyverse to wrangle and plot results
+#load tidyverse to wrangle and plot results.
 library(tidyverse)
 
-#load example data + metadata from the volatility study study
+#load example data + metadata from the volatility study.
 data(volatility_data)
 ```
 
@@ -85,7 +85,23 @@ head(vola_metadata)
 
 ``` r
 vola_out <- volatility(counts = vola_genus_table, metadata = vola_metadata$ID)
+
+head(vola_out)
 ```
+
+    ##   ID volatility
+    ## 1  1  14.146575
+    ## 2 10  15.753087
+    ## 3 11  16.299301
+    ## 4 13  16.311881
+    ## 5 14   8.803906
+    ## 6 15   9.784708
+
+The output of the main `volatility` function is a data.frame with two
+columns. `ID` corresponds to the pairs of samples passed on in the
+`metadata` argument, whereas `volatility` shows the measured volatility
+between those samples in terms of Aitchison distance (Euclidean distance
+of CLR-transformed counts).
 
 ## Plot the results
 
@@ -106,7 +122,9 @@ vola_out %>%
   
   #Tweak appearance 
   scale_fill_manual(values = c("Control" = "#3690c0", "Stress"  = "#cb181d")) +
-  theme_bw() 
+  theme_bw() +
+  xlab("") +
+  ylab("Volatility (Aitchison distance)")
 ```
 
 ![](README_files/figure-gfm/plot_volatility-1.png)<!-- -->
