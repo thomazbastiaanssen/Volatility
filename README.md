@@ -63,10 +63,11 @@ expects two objects.
     and rows and features.
 -   `metadata`, a vector in the same order as the count table, denoting
     which samples are from the same source.
--   the column `mouse_ID` in `vola_metadata` is appropriate for this.
+    -   the column `mouse_ID` in `vola_metadata` is appropriate for
+        this.
 
 ``` r
-head(vola_genus_table[,1:2])
+head(vola_genus_table[,1:3])
 ```
 
     ##                                                                                                Validation_Pre_Control_1
@@ -83,6 +84,13 @@ head(vola_genus_table[,1:2])
     ## Bacteria_Actinobacteria_Coriobacteriia_Coriobacteriales_Atopobiaceae_Olsenella                                        0
     ## Bacteria_Actinobacteria_Coriobacteriia_Coriobacteriales_Coriobacteriaceae_Collinsella                                 0
     ## Bacteria_Actinobacteria_Coriobacteriia_Coriobacteriales_Eggerthellaceae_DNF00809                                     47
+    ##                                                                                                Validation_Pre_Control_3
+    ## Bacteria_Actinobacteria_Actinobacteria_Bifidobacteriales_Bifidobacteriaceae_Bifidobacterium                        5650
+    ## Bacteria_Actinobacteria_Actinobacteria_Kineosporiales_Kineosporiaceae_Quadrisphaera                                   0
+    ## Bacteria_Actinobacteria_Coriobacteriia_Coriobacteriales_Atopobiaceae_Coriobacteriaceae_UCG-002                        0
+    ## Bacteria_Actinobacteria_Coriobacteriia_Coriobacteriales_Atopobiaceae_Olsenella                                        0
+    ## Bacteria_Actinobacteria_Coriobacteriia_Coriobacteriales_Coriobacteriaceae_Collinsella                                 0
+    ## Bacteria_Actinobacteria_Coriobacteriia_Coriobacteriales_Eggerthellaceae_DNF00809                                    139
 
 ``` r
 head(vola_metadata)

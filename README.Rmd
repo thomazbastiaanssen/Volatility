@@ -50,10 +50,10 @@ The main `volatility` function does all the heavy lifting here. It expects two o
 
 * `counts`, a microbiome feature count table, with columns as samples and rows and features. 
 * `metadata`, a vector in the same order as the count table, denoting which samples are from the same source. 
- + the column `mouse_ID` in `vola_metadata` is appropriate for this. 
+    + the column `mouse_ID` in `vola_metadata` is appropriate for this. 
 
 ```{r, eval=TRUE}
-head(vola_genus_table[,1:2])
+head(vola_genus_table[,1:3])
 
 head(vola_metadata)
 

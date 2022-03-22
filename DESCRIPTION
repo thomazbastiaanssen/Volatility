@@ -6,7 +6,10 @@ Authors@R: c(
    )
 Maintainer: Thomaz Bastiaanssen <thomaz.bastiaanssen@ucc.ie>
 Description: Compute the degree of change over time in microbiome time-series data. 
-License: use_gpl3_license()
+Depends: R (>= 3.5.0)
+Imports:
+    stats
+License: `use_gpl3_license()`
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 LazyData: true
