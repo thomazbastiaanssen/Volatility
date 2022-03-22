@@ -100,12 +100,21 @@ vola_out <- volatility(counts = vola_genus_table, metadata = vola_metadata$ID)
 ## Plot the results
 
 ``` r
-left_join(vola_out, vola_metadata[vola_metadata$timepoint == "Pre",], "ID") %>%
-
+vola_out %>%
+  #Merge the volatilty output with the rest of the initial metadata using the shared "ID" column
+  left_join(vola_metadata[vola_metadata$timepoint == "Pre",], "ID") %>%
+  
+  #Pipe into ggplot
   ggplot(aes(x = treatment, y = volatility, fill = treatment)) +
+  
+  #Define geoms, boxplots overlayed with data points in this case
   geom_boxplot(alpha = 1/2)+
   geom_point(shape = 21) +
+  
+  #Split the plot by cohort
   facet_wrap(~cohort) +
+  
+  #Tweak appearance 
   scale_fill_manual(values = c("Control" = "#3690c0", "Stress"  = "#cb181d")) +
   theme_bw() 
 ```
