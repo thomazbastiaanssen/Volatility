@@ -52,8 +52,8 @@ The main `volatility` function does all the heavy lifting here. It expects two o
 * `metadata`, a vector in the same order as the count table, denoting which samples are from the same source. 
     + the column `mouse_ID` in `vola_metadata` is appropriate for this. 
 
-```{r, eval=TRUE}
-head(vola_genus_table[,1:2])
+```{r, eval=TRUE, fig.width = 15}
+vola_genus_table[4:10,1:2]
 
 head(vola_metadata)
 

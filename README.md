@@ -67,23 +67,17 @@ expects two objects.
         this.
 
 ``` r
-head(vola_genus_table[,1:2])
+vola_genus_table[4:10,1:2]
 ```
 
-    ##                                        Validation_Pre_Control_1
-    ## Bifidobacteriaceae_Bifidobacterium                         1017
-    ## Kineosporiaceae_Quadrisphaera                                 0
-    ## Atopobiaceae_Coriobacteriaceae_UCG-002                        0
-    ## Atopobiaceae_Olsenella                                        0
-    ## Coriobacteriaceae_Collinsella                                 0
-    ## Eggerthellaceae_DNF00809                                    102
-    ##                                        Validation_Pre_Control_2
-    ## Bifidobacteriaceae_Bifidobacterium                            0
-    ## Kineosporiaceae_Quadrisphaera                                 0
-    ## Atopobiaceae_Coriobacteriaceae_UCG-002                        0
-    ## Atopobiaceae_Olsenella                                        0
-    ## Coriobacteriaceae_Collinsella                                 0
-    ## Eggerthellaceae_DNF00809                                     47
+    ##                               Validation_Pre_Control_1 Validation_Pre_Control_2
+    ## Atopobiaceae_Olsenella                               0                        0
+    ## Coriobacteriaceae_Collinsella                        0                        0
+    ## Eggerthellaceae_DNF00809                           102                       47
+    ## Eggerthellaceae_Enterorhabdus                       53                      114
+    ## Eggerthellaceae_Parvibacter                         21                       20
+    ## Bacteroidaceae_Bacteroides                         616                      453
+    ## Marinifilaceae_Odoribacter                         780                      915
 
 ``` r
 head(vola_metadata)
