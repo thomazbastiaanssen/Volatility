@@ -9,16 +9,16 @@ volatility <- function(counts, metadata, transform = TRUE, verbose = TRUE){
   volatility_df = compute_volatility(counts = counts, ids = metadata)
 }
 
-volatility_boot <- function(counts, metadata, transform = TRUE, times = 1000, nmax = 50, verbose = TRUE){
-  #stopifnot("nmax cannot exceed the the number of features." = nmax <= nrow(counts))
-
-  boot_inds <- replicate(times, sample(1:nrow(counts), size = nmax, replace = T))
-  res = apply(boot_inds, MARGIN = 2, FUN = function(x) {volatility(counts = counts[x,], metadata = metadata)$volatility})
-
-  row.names(res) = unique(sort(metadata))
-
-  return(res)
-}
+# volatility_boot <- function(counts, metadata, transform = TRUE, times = 1000, nmax = 50, verbose = TRUE){
+#   #stopifnot("nmax cannot exceed the the number of features." = nmax <= nrow(counts))
+#
+#   boot_inds <- replicate(times, sample(1:nrow(counts), size = nmax, replace = T))
+#   res = apply(boot_inds, MARGIN = 2, FUN = function(x) {volatility(counts = counts[x,], metadata = metadata)$volatility})
+#
+#   row.names(res) = unique(sort(metadata))
+#
+#   return(res)
+# }
 
 compute_volatility <- function(counts, ids, verbose = TRUE){
   stopifnot("For simple volatility calculations all microbiomes need exactly two measurements" = all(table(ids) == 2))
@@ -44,32 +44,32 @@ compute_volatility <- function(counts, ids, verbose = TRUE){
   return(volatility_df)
 
 }
-
-counts = counts[apply(counts == 0, 1, sum) <= (ncol(counts) *0.90 ), ]
-
-counts.exp = clr_c(counts)
-res = volatility(counts = counts, metadata = vola_metadata$mouse_ID)
-bootres = volatility_boot(counts = counts, metadata = vola_metadata$mouse_ID, times = 10, nmax = 500 )
-
-mapres = lapply(X = (10 *1:80), FUN = function(x){volatility_boot(counts = counts, metadata = vola_metadata$mouse_ID, times = 10, nmax = x)})
-
-bootres = apply(bootres, 1, median)
-
-bootres = data.frame(ID = names(bootres),
-                     volatility = bootres)
-
-colnames(met)[5] = "ID"
-left_join(bootres, met[1:60,], "ID") %>%
-  filter(cohort != "Discovery") %>%
-  t.test(volatility ~ treatment, data = .)
-
-library(tidyverse)
-
-met = vola_metadata
-colnames(met)[5] = "ID"
-left_join(bootres, met[1:60,], "ID") %>%
-  ggplot(aes(x = treatment, y = volatility)) +
-  geom_boxplot()+
-  geom_point() +
-  facet_wrap(~cohort)
+# counts <- vola_genus_table
+#
+# counts = counts[apply(counts == 0, 1, sum) <= (ncol(counts) *0.90 ), ]
+#
+# counts.exp = clr_c(counts)
+# res = volatility(counts = counts, metadata = vola_metadata$mouse_ID)
+# bootres = volatility_boot(counts = counts, metadata = vola_metadata$mouse_ID, times = 10, nmax = 500 )
+#
+# mapres = lapply(X = (10 *1:8), FUN = function(x){volatility_boot(counts = counts, metadata = vola_metadata$mouse_ID, times = 10, nmax = x)})
+#
+# mapres = lapply(X = mapres, FUN = function(x){apply(x, 1, median)})
+# bootres = do.call(cbind, mapres)
+# bootres = apply(bootres, 1, median)
+#
+# bootres = data.frame(ID = rownames(bootres),
+#                      volatility = bootres)
+#
+# library(tidyverse)
+#
+# met = vola_metadata
+# colnames(met)[5] = "ID"
+# left_join(bootres, met[1:60,], "ID") %>%
+#   pivot_longer(!c(ID, sample_ID, cohort, timepoint, treatment)) %>%
+#   ggplot(aes(x = name, y = value, groups = treatment)) +
+#   geom_path(aes(group = ID)) +
+#   geom_boxplot()+
+#   geom_point(position = position_dodge(0.75)) +
+#   facet_wrap(~cohort)
 
