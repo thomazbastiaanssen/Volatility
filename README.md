@@ -67,7 +67,7 @@ expects two objects.
         this.
 
 ``` r
-head(vola_genus_table[,1:3])
+head(vola_genus_table[,1:2])
 ```
 
     ##                                        Validation_Pre_Control_1
@@ -84,13 +84,6 @@ head(vola_genus_table[,1:3])
     ## Atopobiaceae_Olsenella                                        0
     ## Coriobacteriaceae_Collinsella                                 0
     ## Eggerthellaceae_DNF00809                                     47
-    ##                                        Validation_Pre_Control_3
-    ## Bifidobacteriaceae_Bifidobacterium                         5650
-    ## Kineosporiaceae_Quadrisphaera                                 0
-    ## Atopobiaceae_Coriobacteriaceae_UCG-002                        0
-    ## Atopobiaceae_Olsenella                                        0
-    ## Coriobacteriaceae_Collinsella                                 0
-    ## Eggerthellaceae_DNF00809                                    139
 
 ``` r
 head(vola_metadata)
