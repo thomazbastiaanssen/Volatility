@@ -1,3 +1,5 @@
 ^volatility\.Rproj$
 ^\.Rproj\.user$
 ^Volatility_analysis.R
+^README\.Rmd$
+^README_files$
