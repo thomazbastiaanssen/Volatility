@@ -70,27 +70,27 @@ expects two objects.
 head(vola_genus_table[,1:3])
 ```
 
-    ##                                                                                                Validation_Pre_Control_1
-    ## Bacteria_Actinobacteria_Actinobacteria_Bifidobacteriales_Bifidobacteriaceae_Bifidobacterium                        1017
-    ## Bacteria_Actinobacteria_Actinobacteria_Kineosporiales_Kineosporiaceae_Quadrisphaera                                   0
-    ## Bacteria_Actinobacteria_Coriobacteriia_Coriobacteriales_Atopobiaceae_Coriobacteriaceae_UCG-002                        0
-    ## Bacteria_Actinobacteria_Coriobacteriia_Coriobacteriales_Atopobiaceae_Olsenella                                        0
-    ## Bacteria_Actinobacteria_Coriobacteriia_Coriobacteriales_Coriobacteriaceae_Collinsella                                 0
-    ## Bacteria_Actinobacteria_Coriobacteriia_Coriobacteriales_Eggerthellaceae_DNF00809                                    102
-    ##                                                                                                Validation_Pre_Control_2
-    ## Bacteria_Actinobacteria_Actinobacteria_Bifidobacteriales_Bifidobacteriaceae_Bifidobacterium                           0
-    ## Bacteria_Actinobacteria_Actinobacteria_Kineosporiales_Kineosporiaceae_Quadrisphaera                                   0
-    ## Bacteria_Actinobacteria_Coriobacteriia_Coriobacteriales_Atopobiaceae_Coriobacteriaceae_UCG-002                        0
-    ## Bacteria_Actinobacteria_Coriobacteriia_Coriobacteriales_Atopobiaceae_Olsenella                                        0
-    ## Bacteria_Actinobacteria_Coriobacteriia_Coriobacteriales_Coriobacteriaceae_Collinsella                                 0
-    ## Bacteria_Actinobacteria_Coriobacteriia_Coriobacteriales_Eggerthellaceae_DNF00809                                     47
-    ##                                                                                                Validation_Pre_Control_3
-    ## Bacteria_Actinobacteria_Actinobacteria_Bifidobacteriales_Bifidobacteriaceae_Bifidobacterium                        5650
-    ## Bacteria_Actinobacteria_Actinobacteria_Kineosporiales_Kineosporiaceae_Quadrisphaera                                   0
-    ## Bacteria_Actinobacteria_Coriobacteriia_Coriobacteriales_Atopobiaceae_Coriobacteriaceae_UCG-002                        0
-    ## Bacteria_Actinobacteria_Coriobacteriia_Coriobacteriales_Atopobiaceae_Olsenella                                        0
-    ## Bacteria_Actinobacteria_Coriobacteriia_Coriobacteriales_Coriobacteriaceae_Collinsella                                 0
-    ## Bacteria_Actinobacteria_Coriobacteriia_Coriobacteriales_Eggerthellaceae_DNF00809                                    139
+    ##                                        Validation_Pre_Control_1
+    ## Bifidobacteriaceae_Bifidobacterium                         1017
+    ## Kineosporiaceae_Quadrisphaera                                 0
+    ## Atopobiaceae_Coriobacteriaceae_UCG-002                        0
+    ## Atopobiaceae_Olsenella                                        0
+    ## Coriobacteriaceae_Collinsella                                 0
+    ## Eggerthellaceae_DNF00809                                    102
+    ##                                        Validation_Pre_Control_2
+    ## Bifidobacteriaceae_Bifidobacterium                            0
+    ## Kineosporiaceae_Quadrisphaera                                 0
+    ## Atopobiaceae_Coriobacteriaceae_UCG-002                        0
+    ## Atopobiaceae_Olsenella                                        0
+    ## Coriobacteriaceae_Collinsella                                 0
+    ## Eggerthellaceae_DNF00809                                     47
+    ##                                        Validation_Pre_Control_3
+    ## Bifidobacteriaceae_Bifidobacterium                         5650
+    ## Kineosporiaceae_Quadrisphaera                                 0
+    ## Atopobiaceae_Coriobacteriaceae_UCG-002                        0
+    ## Atopobiaceae_Olsenella                                        0
+    ## Coriobacteriaceae_Collinsella                                 0
+    ## Eggerthellaceae_DNF00809                                    139
 
 ``` r
 head(vola_metadata)
