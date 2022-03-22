@@ -47,6 +47,7 @@ data(volatility_data)
 ## Input data
 
 The main `volatility` function does all the heavy lifting here. It expects two objects. 
+
 * `counts`, a microbiome feature count table, with columns as samples and rows and features. 
 * `metadata`, a vector in the same order as the count table, denoting which samples are from the same source. 
  + the column `mouse_ID` in `vola_metadata` is appropriate for this. 
