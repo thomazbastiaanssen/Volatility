@@ -1,3 +1,6 @@
+#' Compute volatility between pairs of microbiome count data
+#' @export
+
 volatility <- function(counts, metadata, transform = TRUE, verbose = TRUE){
   if(transform){stopifnot("Count table contains negative values;\nIt looks like the count table is already transformed." = all(counts >= 0))}
 
