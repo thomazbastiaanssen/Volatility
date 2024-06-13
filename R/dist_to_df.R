@@ -3,6 +3,7 @@
 #' @param x a dist object, denoting the pairwise distances between samples.
 #' @param metadata a vector or table. If a table is given, `g` cannot be left at `NULL`. In this case, all additional information in the metadata file is preserved in the returned `data.frame`.
 #' @param g Defaults to `NULL`. If metadata is a table, g should denote the name or index of the column that contains the grouping variable.
+#' @param simplify_output Defaults to `TRUE`. Whether duplicate columns should be removed from the returned data.frame.
 #' @return a `data.frame` with at least four columns: "to", "from", "dist" and "group". As well as any additional information provided with `metadata` argument.
 #' @importFrom utils combn
 #' @export
@@ -13,7 +14,7 @@
 #'
 #' get_pairwise_distance(x = c.dist, metadata = vola_metadata, g = "ID")
 #'
-get_pairwise_distance <- function(x, metadata, g = NULL){
+get_pairwise_distance <- function(x, metadata, g = NULL, simplify_output = TRUE){
   is_1d <- (is.null(dim(metadata)) & length(metadata) > 1)
   #Check call format
   if(!is_1d){
@@ -42,6 +43,24 @@ get_pairwise_distance <- function(x, metadata, g = NULL){
     )
   }
   #Else, when metadata is a table:
+
+  if(simplify_output){
+
+    redundant_cols <- apply(metadata[paired_idx[2,],1:ncol(metadata)] == metadata[paired_idx[1,],1:ncol(metadata)], MARGIN = 2, all)
+
+    return(
+      data.frame(
+        from     = attr(x, "Labels")[paired_idx[1,]],
+        to       = attr(x, "Labels")[paired_idx[2,]],
+        dist     = x[ind_from_2d_to_1d(dist_obj = x, i = paired_idx[2,], j = paired_idx[1,])],
+        group    = group[paired_idx[1,]],
+        metadata[paired_idx[1,], redundant_cols],
+        to       = metadata[paired_idx[1,],!redundant_cols],
+        from     = metadata[paired_idx[2,],!redundant_cols]
+      )
+    )
+  }
+
   data.frame(
     from     = attr(x, "Labels")[paired_idx[1,]],
     to       = attr(x, "Labels")[paired_idx[2,]],

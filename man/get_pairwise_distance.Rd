@@ -4,7 +4,7 @@
 \alias{get_pairwise_distance}
 \title{Make a table of pairwise distances based on group membership.}
 \usage{
-get_pairwise_distance(x, metadata, g = NULL)
+get_pairwise_distance(x, metadata, g = NULL, simplify_output = TRUE)
 }
 \arguments{
 \item{x}{a dist object, denoting the pairwise distances between samples.}
@@ -12,6 +12,8 @@ get_pairwise_distance(x, metadata, g = NULL)
 \item{metadata}{a vector or table. If a table is given, \code{g} cannot be left at \code{NULL}. In this case, all additional information in the metadata file is preserved in the returned \code{data.frame}.}
 
 \item{g}{Defaults to \code{NULL}. If metadata is a table, g should denote the name or index of the column that contains the grouping variable.}
+
+\item{simplify_output}{Defaults to \code{TRUE}. Whether duplicate columns should be removed from the returned data.frame.}
 }
 \value{
 a \code{data.frame} with at least four columns: "to", "from", "dist" and "group". As well as any additional information provided with \code{metadata} argument.
