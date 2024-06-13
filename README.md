@@ -47,13 +47,9 @@ data(volatility_data)
 
 ## Input data
 
-The main `volatility` function does all the heavy lifting here. It
-expects two objects:
-
--   `counts`, a microbiome feature count table, with columns as samples
-    and rows and features.
-    -   The `vola_genus_table` object is an example of an appropriately
-        formatted count table.
+In order to compute volatility, we need a feature (count) table, which
+contains our microbiome data and a metadata object, which denotes at
+least which samples should be paired.
 
 ``` r
 vola_genus_table[4:10,1:2]
@@ -68,9 +64,9 @@ vola_genus_table[4:10,1:2]
     ## Bacteroidaceae_Bacteroides                         616                      453
     ## Marinifilaceae_Odoribacter                         780                      915
 
--   `metadata`, a vector in the same order as the count table, denoting
-    which samples are from the same source.
-    -   The column `ID` in `vola_metadata` is appropriate for this.
+- `metadata`, a vector in the same order as the count table, denoting
+  which samples are from the same source.
+  - The column `ID` in `vola_metadata` is appropriate for this.
 
 ``` r
 head(vola_metadata)
@@ -84,21 +80,25 @@ head(vola_metadata)
     ## 5 Validation_Pre_Control_5 Validation       Pre   Control  5
     ## 6 Validation_Pre_Control_6 Validation       Pre   Control  6
 
+## Data preparation
+
+Before we compute pairwise distances between samples, it’s a good idea
+to transform microbial count data, to help deal with the compositional
+nature. Here, we will use a CLR transformation.
+
+``` r
+#CLR-transform
+vola_genus_table <- clr_c(vola_genus_table)
+
+#Compute distance
+vola.dist <- dist(t(vola_genus_table))
+```
+
 ## Basic use
 
 ``` r
-vola_out <- volatility(counts = vola_genus_table, metadata = vola_metadata$ID)
-
-head(vola_out)
+vola_out <- get_pairwise_distance(x = vola.dist, metadata = vola_metadata, g = "ID")
 ```
-
-    ##   ID volatility
-    ## 1  1  14.146575
-    ## 2 10  15.753087
-    ## 3 11  16.299301
-    ## 4 13  16.311881
-    ## 5 14   8.803906
-    ## 6 15   9.784708
 
 The output of the main `volatility` function is a data.frame with two
 columns. `ID` corresponds to the pairs of samples passed on in the
@@ -110,18 +110,19 @@ of CLR-transformed counts).
 
 ``` r
 vola_out %>%
-  #Merge the volatilty output with the rest of the initial metadata using the shared "ID" column
-  left_join(vola_metadata[vola_metadata$timepoint == "Pre",], "ID") %>%
   
   #Pipe into ggplot
-  ggplot(aes(x = treatment, y = volatility, fill = treatment)) +
+  ggplot() +
+  
+  #Define aesthetics
+  aes(x = from.treatment, y = dist, fill = from.treatment) + 
   
   #Define geoms, boxplots overlayed with data points in this case
   geom_boxplot(alpha = 1/2)+
   geom_point(shape = 21) +
   
   #Split the plot by cohort
-  facet_wrap(~cohort) +
+  facet_wrap(~from.cohort) +
   
   #Tweak appearance 
   scale_fill_manual(values = c("Control" = "#3690c0", "Stress"  = "#cb181d")) +
