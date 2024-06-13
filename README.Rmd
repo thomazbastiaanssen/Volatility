@@ -49,10 +49,8 @@ data(volatility_data)
 
 ## Input data
 
-The main `volatility` function does all the heavy lifting here. It expects two objects:
+In order to compute volatility, we need a feature (count) table, which contains our microbiome data and a metadata object, which denotes at least which samples should be paired. 
 
-* `counts`, a microbiome feature count table, with columns as samples and rows and features. 
-    + The `vola_genus_table` object is an example of an appropriately formatted count table.
 ```{r, eval=TRUE}
 vola_genus_table[4:10,1:2]
 ```
@@ -65,33 +63,43 @@ head(vola_metadata)
 
 ```
 
+## Data preparation
+
+Before we compute pairwise distances between samples, it's a good idea to transform microbial count data, to help deal with the compositional nature. Here, we will use a CLR transformation. 
+```{r, eval=TRUE}
+#CLR-transform
+vola_genus_table <- clr_c(vola_genus_table)
+
+#Compute distance
+vola.dist <- dist(t(vola_genus_table))
+```
+
 ## Basic use
 
 ```{r, eval=TRUE}
-vola_out <- volatility(counts = vola_genus_table, metadata = vola_metadata$ID)
+vola_out <- get_pairwise_distance(x = vola.dist, metadata = vola_metadata, g = "ID")
 
-head(vola_out)
 ```
 
 The output of the main `volatility` function is a data.frame with two columns. `ID` corresponds to the pairs of samples passed on in the `metadata` argument, whereas `volatility` shows the measured volatility between those samples in terms of Aitchison distance (Euclidean distance of CLR-transformed counts). 
 
 ## Plot the results
 
-
 ```{r plot_volatility, eval=TRUE, fig.width = 5, fig.height = 5}
 vola_out %>%
-  #Merge the volatilty output with the rest of the initial metadata using the shared "ID" column
-  left_join(vola_metadata[vola_metadata$timepoint == "Pre",], "ID") %>%
   
   #Pipe into ggplot
-  ggplot(aes(x = treatment, y = volatility, fill = treatment)) +
+  ggplot() +
+  
+  #Define aesthetics
+  aes(x = from.treatment, y = dist, fill = from.treatment) + 
   
   #Define geoms, boxplots overlayed with data points in this case
   geom_boxplot(alpha = 1/2)+
   geom_point(shape = 21) +
   
   #Split the plot by cohort
-  facet_wrap(~cohort) +
+  facet_wrap(~from.cohort) +
   
   #Tweak appearance 
   scale_fill_manual(values = c("Control" = "#3690c0", "Stress"  = "#cb181d")) +
