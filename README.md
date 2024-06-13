@@ -115,14 +115,14 @@ vola_out %>%
   ggplot() +
   
   #Define aesthetics
-  aes(x = from.treatment, y = dist, fill = from.treatment) + 
+  aes(x = treatment, y = dist, fill = treatment) + 
   
   #Define geoms, boxplots overlayed with data points in this case
   geom_boxplot(alpha = 1/2)+
   geom_point(shape = 21) +
   
   #Split the plot by cohort
-  facet_wrap(~from.cohort) +
+  facet_wrap(~cohort) +
   
   #Tweak appearance 
   scale_fill_manual(values = c("Control" = "#3690c0", "Stress"  = "#cb181d")) +
