@@ -46,7 +46,7 @@ get_pairwise_distance <- function(x, metadata, g = NULL, simplify_output = TRUE)
 
   if(simplify_output){
 
-    redundant_cols <- apply(metadata[paired_idx[2,],1:ncol(metadata)] == metadata[paired_idx[1,],1:ncol(metadata)], MARGIN = 2, all)
+    redundant_cols <- apply(metadata[paired_idx[2,],1:ncol(metadata)] == metadata[paired_idx[1,],1:ncol(metadata)], MARGIN = 2, all, na.rm = TRUE)
 
     return(
       data.frame(
