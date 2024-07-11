@@ -1,0 +1,48 @@
+---
+output:
+  md_document:
+    variant: gfm
+
+---
+
+
+```{r setup, include = F}
+knitr::opts_chunk$set(echo = TRUE)
+options(tidyverse.quiet = TRUE)
+library(volatility)
+```
+
+
+
+```{r, eval=TRUE}
+#install and load volatility library
+#devtools::install_github("thomazbastiaanssen/volatility")
+library(volatility)
+
+#load tidyverse to wrangle and plot results.
+library(tidyverse)
+
+#devtools::install_github("thomazbastiaanssen/deleuze")
+library(deleuze)    
+
+#load example data + metadata from the volatility study.
+data(summer_school)
+```
+
+
+```{r, eval=TRUE}
+#Ensure microbiome table is in the same order as the metadata
+mb_table <- mb_table[metadata$sample_id]
+
+#Perform a double-centered log-ratio transformation:
+mb.exp <- dclr(as.matrix(mb_table), type = "numeric")
+
+#compute distance matrix
+mb.dist <- dist(t(mb.exp))
+
+#Compute volatility
+vola_df <- get_pairwise_distance(mb.dist, metadata = metadata, g = 'id_num')
+
+#Compute feature-wise volatility 
+get_fw_volatility(vola_df, f_table = mb_table)
+```
