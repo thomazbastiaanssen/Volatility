@@ -46,7 +46,11 @@ get_pairwise_distance <- function(x, metadata, g = NULL, simplify_output = TRUE)
 
   if(simplify_output){
 
-    redundant_cols <- apply(metadata[paired_idx[2,],1:ncol(metadata)] == metadata[paired_idx[1,],1:ncol(metadata)], MARGIN = 2, all, na.rm = TRUE)
+    redundant_cols = apply(metadata[paired_idx[2,],1:ncol(metadata)] == metadata[paired_idx[1,],1:ncol(metadata)],
+                           MARGIN = 2, FUN = all, na.rm = TRUE)
+    df = data.frame(metadata[paired_idx[1,], redundant_cols])
+    colnames(df) <- names(redundant_cols[redundant_cols])
+
 
     return(
       data.frame(
@@ -54,9 +58,10 @@ get_pairwise_distance <- function(x, metadata, g = NULL, simplify_output = TRUE)
         to       = attr(x, "Labels")[paired_idx[2,]],
         dist     = x[ind_from_2d_to_1d(dist_obj = x, i = paired_idx[2,], j = paired_idx[1,])],
         group    = group[paired_idx[1,]],
-        metadata[paired_idx[1,], redundant_cols],
-        to       = metadata[paired_idx[1,],!redundant_cols],
-        from     = metadata[paired_idx[2,],!redundant_cols]
+        df,
+        from     = metadata[paired_idx[1,],!redundant_cols],
+        to       = metadata[paired_idx[2,],!redundant_cols],
+        row.names = NULL
       )
     )
   }
